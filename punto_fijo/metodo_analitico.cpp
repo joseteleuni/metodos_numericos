@@ -2,25 +2,27 @@
 #define _USE_MATH_DEFINES // Definicion de constantes matematicas 
 #include <iostream>
 #include <cmath>
+#include "lib.h"
 
 using namespace std;
 
-//Funciones a usar
-void punto_fijo(float);
-bool convergencia(float x);
+//Declaracion de funciones a usar
+float fx(float x);
+float gx(float x);
 
-// Declaracion de variables globales
-float x0=0;
-float er=0.00001;
-float xs,xr;
+
+//*************Declaracion de variables globales**********
+float x0=0; // Setear el punto inicial
+float er=0.00001; // Setear el error
+
 
 int main(){
    
-  if(convergencia(x0)){
+  if(convergencia(x0,fx)){
 
     cout<<"El g(x) es convergente "<<"\n";
 
-    punto_fijo(x0);
+    punto_fijo(x0,er,gx);
     
   }
 
@@ -30,36 +32,21 @@ int main(){
   return 0;
 }
 
+//****************Implementacion **********
 
-// Implementacion de Funciones
-void punto_fijo(float x){
-    xr=x;
+// fx representa la funcion fx=0
+float fx(float x) {
 
-     do {
-          xs = xr;
-          xr=(exp(xs)-sin(xs))/3;
-          cout<<"xs : "<<xs<<" | ";
-          cout<<"xr : "<<xr<<"\n";      
-       }
-       
-       while(xr-xs>er) ;
-    
-    cout<<"El valor de xr es : "<<xr;
+   return (3*x+sin(x)-exp(x));
 }
 
-bool convergencia(float x){
-    float gdx;
-    bool status;
-    gdx=(exp(x)-cos(x))/3;
+// gx representa la funcion gx=x
+float gx(float x){
 
-    if(gdx>-1 && gdx<1){
-         status = true;
-    }
-    else{
-        status = false;
-    }
-
-    return status;
+  return (exp(x)-cos(x))/3; 
 }
+
+
+
 
 

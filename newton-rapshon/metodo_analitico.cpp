@@ -2,41 +2,32 @@
 #define _USE_MATH_DEFINES // Definicion de constantes matematicas 
 #include <iostream>
 #include <cmath>
+#include "lib.h"
 
 using namespace std;
 
 // variables globales
 float x0=0.4;
 float er=0.00001;
-float xs,xr;
 
-// declaracion de funciones
-void metodo(float x);
+// Declaracion de funciones globales
+float f(float x);
+float df(float x);
 
 //metodo int main
 int main(){
 
-    metodo(x0);
+    metodo(x0,er,f,df);
     return 0;
 }
 
-// Implementacion
-
-void metodo(float x) {
-    xr=x;
-    float fx;
-     do {
-          xs = xr;
-          fx = 3*xs+sin(xs)-exp(xs);
-          xr=xs -(3*xs+sin(xs)-exp(xs))/(3+cos(xs)-exp(xs));
-          cout<<"xs : "<<xs<<" | ";
-          cout<<"xr : "<<xr<<" | ";
-          cout<<"f(xs) : "<<fx<<"\n";      
-       }
-       
-       while(abs(xs-xr)>er) ;
-    
-    cout<<"El valor de xr es : "<<xr;
-    
+float f(float x){
+    return (3*x+sin(x)-exp(x)) ;
 }
+
+float df(float x){
+    return (3+cos(x)-exp(x)) ;
+}
+
+
 
